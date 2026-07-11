@@ -18,17 +18,21 @@ interface ConversationDao {
     @Query("SELECT * FROM conversations WHERE isArchived = 0 ORDER BY updatedAt DESC")
     fun getAllActive(): Flow<List<ConversationEntity>>
 
+    @Transaction
     @Query("SELECT * FROM conversations WHERE id = :id")
-    fun getById(id: String): Flow<ConversationEntity?>
+    fun getWithMessages(id: String): Flow<Pair<ConversationEntity, List<MessageEntity>>?>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(conversation: ConversationEntity)
 
-    @Update
-    suspend fun update(conversation: ConversationEntity)
+    @Query("UPDATE conversations SET updatedAt = :timestamp WHERE id = :id")
+    suspend fun updateTimestamp(id: String, timestamp: Long = System.currentTimeMillis())
 
-    @Delete
-    suspend fun delete(conversation: ConversationEntity)
+    @Query("UPDATE conversations SET isArchived = 1 WHERE id = :id")
+    suspend fun archive(id: String)
+
+    @Query("DELETE FROM conversations WHERE id = :id")
+    suspend fun deleteById(id: String)
 }
 
 /**
