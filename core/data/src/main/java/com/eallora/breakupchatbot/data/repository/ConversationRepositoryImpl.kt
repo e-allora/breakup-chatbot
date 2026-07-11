@@ -24,11 +24,11 @@ class ConversationRepositoryImpl @Inject constructor(
 ) : ConversationRepository {
     
     override fun observeConversation(id: String): Flow<ConversationWithMessages?> =
-        conversationDao.getWithMessages(id).map { entityPair ->
-            entityPair?.let { (conv, msgs) ->
+        conversationDao.getByIdWithMessages(id).map { entities ->
+            entities.firstOrNull()?.let { entity ->
                 ConversationWithMessages(
-                    conversation = conv.toDomain(),
-                    messages = msgs.map { it.toDomain() }
+                    conversation = entity.conversation.toDomain(),
+                    messages = entity.messages.map { it.toDomain() }
                 )
             }
         }

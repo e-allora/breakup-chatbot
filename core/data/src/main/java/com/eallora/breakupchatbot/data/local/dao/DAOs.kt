@@ -1,6 +1,7 @@
 package com.eallora.breakupchatbot.data.local.dao
 
 import androidx.room.*
+import com.eallora.breakupchatbot.data.local.ConversationWithMessagesEntity
 import com.eallora.breakupchatbot.data.local.entity.ConversationEntity
 import com.eallora.breakupchatbot.data.local.entity.MessageEntity
 import com.eallora.breakupchatbot.data.local.entity.ExerciseEntity
@@ -20,7 +21,7 @@ interface ConversationDao {
 
     @Transaction
     @Query("SELECT * FROM conversations WHERE id = :id")
-    fun getWithMessages(id: String): Flow<Pair<ConversationEntity, List<MessageEntity>>?>
+    fun getByIdWithMessages(id: String): Flow<List<ConversationWithMessagesEntity>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(conversation: ConversationEntity)
