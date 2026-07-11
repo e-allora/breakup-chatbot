@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Breakup Recovery Chatbot</string>
+    <string name="chat_hint">Type your message…</string>
+    <string name="send">Send</string>
+    <string name="settings">Settings</string>
+    <string name="privacy_dashboard">Privacy Dashboard</string>
+    <string name="api_key_setup">API Key Setup</string>
+    <string name="select_persona">Select Persona</string>
+    <string name="exercises">Exercises</string>
+    <string name="analytics">Analytics</string>
+</resources>
